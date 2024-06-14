@@ -23,10 +23,10 @@ public class PostDocument {
 	@Field(type = FieldType.Long)
 	private Long id;
 
-	@Field(type = FieldType.Text)
+	@Field(type = FieldType.Text, analyzer = "nori")
 	private String title;
 
-	@Field(type = FieldType.Text)
+	@Field(type = FieldType.Text, analyzer = "nori")
 	private String content;
 
 	@Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second)
