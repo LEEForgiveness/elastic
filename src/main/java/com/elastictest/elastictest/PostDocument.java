@@ -7,10 +7,12 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.elasticsearch.annotations.CompletionField;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
+import org.springframework.data.elasticsearch.core.suggest.Completion;
 
 @Getter
 @NoArgsConstructor
@@ -35,6 +37,9 @@ public class PostDocument {
 	@Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second)
 	private LocalDateTime updatedAt;
 
+	@CompletionField
+	private Completion suggest;
+
 	public static PostDocument from(Post post) {
 		return PostDocument.builder()
 			.id(post.getId())
@@ -42,6 +47,17 @@ public class PostDocument {
 			.content(post.getContent())
 			.createdAt(post.getCreatedAt())
 			.updatedAt(post.getUpdatedAt())
+			.suggest(new Completion(new String[]{post.getTitle(), post.getContent()}))
+			.build();
+	}
+
+	public Post toPost() {
+		return Post.builder()
+			.id(id)
+			.title(title)
+			.content(content)
+			.createdAt(createdAt)
+			.updatedAt(updatedAt)
 			.build();
 	}
 

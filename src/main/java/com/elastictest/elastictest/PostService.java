@@ -2,6 +2,7 @@ package com.elastictest.elastictest;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,13 +40,11 @@ public class PostService {
 
 	}
 
-	public List<PostDocument> searchPost(String keyword) {
-		Criteria criteria = new Criteria("title").is(keyword)
-			.or(new Criteria("content").is(keyword));
-		Query searchQuery = new CriteriaQuery(criteria);
-		SearchHits<Post> searchHits = elasticsearchOperations.search(searchQuery, Post.class);
-		return searchHits.getSearchHits().stream()
-			.map(hit -> PostDocument.from(hit.getContent()))
-			.toList();
+	public List<Post> searchPost(String keyword) {
+
+		return postDocumentRepository.findByTitleContainingOrContentContaining(keyword, keyword)
+			.stream()
+			.map(PostDocument::toPost)
+			.collect(Collectors.toList());
 	}
 }

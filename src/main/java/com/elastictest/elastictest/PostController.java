@@ -34,7 +34,7 @@ public class PostController {
 	@GetMapping("/search")
 	public ResponseEntity searchPost(
 		@RequestParam(value = "keyword") String keyword) {
-		List<PostDocument> posts = postService.searchPost(keyword);
+		List<Post> posts = postService.searchPost(keyword);
 
 		return new ResponseEntity(posts, HttpStatus.OK);
 	}
