@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/post")
 public class PostController {
+
 	private final PostService postService;
 
 	@Autowired
@@ -35,6 +36,14 @@ public class PostController {
 	public ResponseEntity searchPost(
 		@RequestParam(value = "keyword") String keyword) {
 		List<Post> posts = postService.searchPost(keyword);
+
+		return new ResponseEntity(posts, HttpStatus.OK);
+	}
+
+	@GetMapping("/searchjpa")
+	public ResponseEntity searchPostJpa(
+		@RequestParam(value = "keyword") String keyword) {
+		List<Post> posts = postService.searchPostJpa(keyword);
 
 		return new ResponseEntity(posts, HttpStatus.OK);
 	}

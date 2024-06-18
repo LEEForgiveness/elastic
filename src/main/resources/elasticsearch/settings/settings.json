@@ -1,0 +1,33 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "nori_analyzer": {
+          "tokenizer": "nori_tokenizer"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "title": {
+        "type": "text",
+        "fields": {
+          "nori": {
+            "type": "text",
+            "analyzer": "nori_analyzer"
+          }
+        }
+      },
+      "content": {
+        "type": "text",
+        "fields": {
+          "nori": {
+            "type": "text",
+            "analyzer": "nori_analyzer"
+          }
+        }
+      }
+    }
+  }
+}

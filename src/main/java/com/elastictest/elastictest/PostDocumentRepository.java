@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PostDocumentRepository extends ElasticsearchRepository<PostDocument, Long> {
 
-	List<PostDocument> findByTitleContainingOrContentContaining(String title, String keyword);
+	List<PostDocument> findByKeywords(String keyword);
 }

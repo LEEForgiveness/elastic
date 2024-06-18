@@ -2,6 +2,7 @@ package com.elastictest.elastictest;
 
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +32,8 @@ public class PostDocument {
 	@Field(type = FieldType.Text, analyzer = "nori")
 	private String content;
 
+	private List<String> keywords;
+
 	@Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second)
 	private LocalDateTime createdAt;
 
@@ -45,8 +48,10 @@ public class PostDocument {
 			.id(post.getId())
 			.title(post.getTitle())
 			.content(post.getContent())
+			.keywords(post.getKeywords())
 			.createdAt(post.getCreatedAt())
 			.updatedAt(post.getUpdatedAt())
+
 			.suggest(new Completion(new String[]{post.getTitle(), post.getContent()}))
 			.build();
 	}
@@ -56,6 +61,7 @@ public class PostDocument {
 			.id(id)
 			.title(title)
 			.content(content)
+			.keywords(keywords)
 			.createdAt(createdAt)
 			.updatedAt(updatedAt)
 			.build();
