@@ -31,7 +31,6 @@ public class PostService {
 			.title(title)
 			.content(content)
 			.createdAt(LocalDateTime.now())
-			.keywords(List.of(title, content))
 			.build();
 
 		postRepository.save(post);
@@ -39,13 +38,13 @@ public class PostService {
 
 	}
 
-	public List<Post> searchPost(String keyword) {
+//	public List<Post> searchPost(String keyword) {
 
-		return postDocumentRepository.findByKeywords(keyword)
-			.stream()
-			.map(PostDocument::toPost)
-			.collect(Collectors.toList());
-	}
+//		return postDocumentRepository.findByKeywords(keyword)
+//			.stream()
+//			.map(PostDocument::toPost)
+//			.collect(Collectors.toList());
+//	}
 
 	public List<Post> searchPostJpa(String keyword) {
 		return postRepository.findByTitleContainingOrContentContaining(keyword, keyword);

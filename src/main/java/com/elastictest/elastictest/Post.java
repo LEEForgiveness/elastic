@@ -27,8 +27,6 @@ public class Post {
 
 	private String content;
 
-	private List<String> keywords;
-
 	private LocalDateTime createdAt;
 
 	private LocalDateTime updatedAt;

@@ -32,13 +32,13 @@ public class PostController {
 		return new ResponseEntity("", HttpStatus.OK);
 	}
 
-	@GetMapping("/search")
-	public ResponseEntity searchPost(
-		@RequestParam(value = "keyword") String keyword) {
-		List<Post> posts = postService.searchPost(keyword);
-
-		return new ResponseEntity(posts, HttpStatus.OK);
-	}
+//	@GetMapping("/search")
+//	public ResponseEntity searchPost(
+//		@RequestParam(value = "keyword") String keyword) {
+//		List<Post> posts = postService.searchPost(keyword);
+//
+//		return new ResponseEntity(posts, HttpStatus.OK);
+//	}
 
 	@GetMapping("/searchjpa")
 	public ResponseEntity searchPostJpa(

@@ -2,24 +2,26 @@ package com.elastictest.elastictest;
 
 import jakarta.persistence.Id;
 import java.time.LocalDateTime;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.elasticsearch.annotations.CompletionField;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
-import org.springframework.data.elasticsearch.core.suggest.Completion;
+import org.springframework.data.elasticsearch.annotations.Mapping;
+import org.springframework.data.elasticsearch.annotations.Setting;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Document(indexName = "post")
+@Document(indexName = "auctionpost")
+@TypeAlias("auctionpost")
+//@Setting(settingPath = "elasticsearch/settings/settings.json")
+//@Mapping(mappingPath = "elasticsearch/settings/mappings.json")
 public class PostDocument {
 
 	@Id
@@ -32,27 +34,22 @@ public class PostDocument {
 	@Field(type = FieldType.Text, analyzer = "nori")
 	private String content;
 
-	private List<String> keywords;
-
 	@Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second)
 	private LocalDateTime createdAt;
 
 	@Field(type = FieldType.Date, format = DateFormat.date_hour_minute_second)
 	private LocalDateTime updatedAt;
 
-	@CompletionField
-	private Completion suggest;
+	@Field(type = FieldType.Text, analyzer = "nori")
+	private String keywords;
 
 	public static PostDocument from(Post post) {
 		return PostDocument.builder()
 			.id(post.getId())
 			.title(post.getTitle())
 			.content(post.getContent())
-			.keywords(post.getKeywords())
 			.createdAt(post.getCreatedAt())
 			.updatedAt(post.getUpdatedAt())
-
-			.suggest(new Completion(new String[]{post.getTitle(), post.getContent()}))
 			.build();
 	}
 
@@ -61,7 +58,6 @@ public class PostDocument {
 			.id(id)
 			.title(title)
 			.content(content)
-			.keywords(keywords)
 			.createdAt(createdAt)
 			.updatedAt(updatedAt)
 			.build();
