@@ -31,4 +31,6 @@ public class Post {
 
 	private LocalDateTime updatedAt;
 
+	private List<String> keywords;
+
 }

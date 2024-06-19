@@ -4,7 +4,7 @@
       "tokenizer": {
         "my_nori_tokenizer": {
           "type": "nori_tokenizer",
-          "decompound_mode": "mixed",
+          "decompound_mode": "discard",
           "discard_punctuation": "false"
         },
         "my_ngram_tokenizer": {
